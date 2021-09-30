@@ -8,6 +8,7 @@ import Grid from "./Grid";
 import Thumb from "./Thumb";
 import Spinner from "./Spinner";
 import SearchBar from "./SearchBar";
+import Button from "./Button";
 // Hooks
 import { useHomeFetch } from "../hooks/useHomeFetch";
 
@@ -16,16 +17,21 @@ import NoImage from "../images/no_image.jpg";
 
 function Home() {
   const [indexHeroImage, setIndexHeroImage] = useState(0);
-  const { state, loading, err, searchTerm, setSearchTerm } = useHomeFetch();
+  const { state, loading, err, searchTerm, setSearchTerm, setIsLoadingMore } =
+    useHomeFetch();
 
   useEffect(() => {
     const timer = setInterval(() => {
       setIndexHeroImage((value) => (value === 19 ? 0 : value + 1));
-    }, 20000);
+    }, 15000);
     return () => {
       clearInterval(timer);
     };
   }, []);
+
+  if (err) {
+    return <div>Algo deu errado...</div>;
+  }
 
   return (
     <>
@@ -54,7 +60,10 @@ function Home() {
           );
         })}
       </Grid>
-      <Spinner />
+      {state.page < state.total_pages && !loading && (
+        <Button text="Mais..." callback={() => setIsLoadingMore(true)} />
+      )}
+      {loading && <Spinner />}
     </>
   );
 }
