@@ -35,9 +35,16 @@ export function useHomeFetch() {
     setLoading(false);
   };
 
+  // Search initial
   useEffect(() => {
     fetchMovies(1);
   }, []);
 
-  return { state, loading, err, setSearchTerm };
+  // Search term
+  useEffect(() => {
+    setState(initialState);
+    fetchMovies(1, searchTerm);
+  }, [searchTerm]);
+
+  return { state, loading, err, searchTerm, setSearchTerm };
 }

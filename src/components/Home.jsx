@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 //Config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
@@ -15,24 +15,35 @@ import { useHomeFetch } from "../hooks/useHomeFetch";
 import NoImage from "../images/no_image.jpg";
 
 function Home() {
-  const { state, loading, err, setSearchTerm } = useHomeFetch();
+  const [indexHeroImage, setIndexHeroImage] = useState(0);
+  const { state, loading, err, searchTerm, setSearchTerm } = useHomeFetch();
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndexHeroImage((value) => (value === 19 ? 0 : value + 1));
+    }, 20000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   return (
     <>
-      {state.results[0] ? (
+      {!searchTerm && state.results[indexHeroImage] ? (
         <HeroImage
-          image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
-          title={state.results[0].title}
-          text={state.results[0].overview}
+          image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[indexHeroImage].backdrop_path}`}
+          title={state.results[indexHeroImage].title}
+          text={state.results[indexHeroImage].overview}
         />
       ) : null}
       <SearchBar setSearchTerm={setSearchTerm} />
-      <Grid header="Mais populares">
+      <Grid header={!searchTerm ? "Mais populares" : "Resultado da busca"}>
         {state.results.map((movie) => {
           return (
             <Thumb
               key={movie.id}
               clickable
+              titleMovie={movie.title}
               movieId={movie.id}
               image={
                 movie.poster_path
