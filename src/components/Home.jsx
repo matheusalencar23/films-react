@@ -4,6 +4,8 @@ import React from "react";
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 // Components
 import HeroImage from "./HeroImage";
+import Grid from "./Grid";
+import Thumb from "./Thumb";
 // Hooks
 import { useHomeFetch } from "../hooks/useHomeFetch";
 
@@ -11,7 +13,6 @@ import { useHomeFetch } from "../hooks/useHomeFetch";
 import NoImage from "../images/no_image.jpg";
 
 function Home() {
-  //   console.log(state);
   const { state, loading, err } = useHomeFetch();
 
   return (
@@ -19,9 +20,26 @@ function Home() {
       {state.results[0] ? (
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
-          title={state.results[0].title} text={state.results[0].overview}
+          title={state.results[0].title}
+          text={state.results[0].overview}
         />
       ) : null}
+      <Grid header="Mais populares">
+        {state.results.map((movie) => {
+          return (
+            <Thumb
+              key={movie.id}
+              clickable
+              movieId={movie.id}
+              image={
+                movie.poster_path
+                  ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                  : NoImage
+              }
+            />
+          );
+        })}
+      </Grid>
     </>
   );
 }
