@@ -1,15 +1,16 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 // API
 import API from "../API";
 
 const initialState = {
-    page: 0,
-    results: [],
-    total_pages: 0,
-    total_results: 0
-}
+  page: 0,
+  results: [],
+  total_pages: 0,
+  total_results: 0,
+};
 
 export function useHomeFetch() {
+  const [searchTerm, setSearchTerm] = useState("");
   const [state, setState] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState(false);
@@ -38,5 +39,5 @@ export function useHomeFetch() {
     fetchMovies(1);
   }, []);
 
-  return { state, loading, err };
+  return { state, loading, err, setSearchTerm };
 }

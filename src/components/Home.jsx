@@ -6,6 +6,8 @@ import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 import HeroImage from "./HeroImage";
 import Grid from "./Grid";
 import Thumb from "./Thumb";
+import Spinner from "./Spinner";
+import SearchBar from "./SearchBar";
 // Hooks
 import { useHomeFetch } from "../hooks/useHomeFetch";
 
@@ -13,7 +15,7 @@ import { useHomeFetch } from "../hooks/useHomeFetch";
 import NoImage from "../images/no_image.jpg";
 
 function Home() {
-  const { state, loading, err } = useHomeFetch();
+  const { state, loading, err, setSearchTerm } = useHomeFetch();
 
   return (
     <>
@@ -24,6 +26,7 @@ function Home() {
           text={state.results[0].overview}
         />
       ) : null}
+      <SearchBar setSearchTerm={setSearchTerm} />
       <Grid header="Mais populares">
         {state.results.map((movie) => {
           return (
@@ -40,6 +43,7 @@ function Home() {
           );
         })}
       </Grid>
+      <Spinner />
     </>
   );
 }
