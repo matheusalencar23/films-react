@@ -40,14 +40,15 @@ export function useHomeFetch() {
 
   // Search initial and term
   useEffect(() => {
+    setState(initialState);
     if (!searchTerm) {
       const sessionState = isPersistedState("homeState");
       if (sessionState) {
         setState(sessionState);
+        setLoading(false);
         return;
       }
     }
-    setState(initialState);
     fetchMovies(1, searchTerm);
   }, [searchTerm]);
 
