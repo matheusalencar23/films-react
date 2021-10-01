@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 // Config
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../../config";
 // Style
@@ -50,5 +51,9 @@ function MovieInfo({ movie }) {
     </Wrapper>
   );
 }
+
+MovieInfo.propTypes = {
+  movie: PropTypes.object,
+};
 
 export default MovieInfo;

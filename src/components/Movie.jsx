@@ -22,8 +22,6 @@ function Movie() {
   if (loading) return <Spinner />;
   if (err) return <div>Algo deu errado...</div>;
 
-  console.log(state);
-
   return (
     <>
       <BreadCrumb movieTitle={state.title} />

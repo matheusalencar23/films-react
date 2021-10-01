@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 // Style
 import { Wrapper, Image } from "./Thumb.style";
 // Route
@@ -25,5 +26,12 @@ function Thumb({ image, titleMovie, movieId, clickable }) {
     </Wrapper>
   );
 }
+
+Thumb.propTypes = {
+  image: PropTypes.string,
+  titleMovie: PropTypes.string,
+  movieId: PropTypes.number,
+  clickable: PropTypes.bool,
+};
 
 export default Thumb;
