@@ -40,7 +40,7 @@ export function useMovieFetch(movieId) {
 
   useEffect(() => {
     sessionStorage.setItem(movieId, JSON.stringify(state));
-  }, [state]);
+  }, [movieId, state]);
 
   return { state, loading, err };
 }
