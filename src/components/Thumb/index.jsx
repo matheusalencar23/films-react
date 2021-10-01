@@ -1,12 +1,12 @@
 import React from "react";
 // Style
-import { Image } from "./Thumb.style";
+import { Wrapper, Image } from "./Thumb.style";
 // Route
 import { Link } from "react-router-dom";
 
 function Thumb({ image, titleMovie, movieId, clickable }) {
   return (
-    <div>
+    <Wrapper>
       {clickable ? (
         <Link to={`/${movieId}`}>
           <Image
@@ -22,7 +22,7 @@ function Thumb({ image, titleMovie, movieId, clickable }) {
           title={titleMovie ? titleMovie : "movie"}
         />
       )}
-    </div>
+    </Wrapper>
   );
 }
 

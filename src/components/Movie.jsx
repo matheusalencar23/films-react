@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Spinner from "./Spinner";
 import BreadCrumb from "./BreadCrumb";
 import MovieInfo from "./MovieInfo";
+import MovieInfoBar from "./MovieInfoBar";
 // Hooks
 import { useMovieFetch } from "../hooks/useMovieFetch";
 // Image
@@ -20,10 +21,17 @@ function Movie() {
   if (loading) return <Spinner />;
   if (err) return <div>Algo deu errado...</div>;
 
+  console.log(state);
+
   return (
     <>
       <BreadCrumb movieTitle={state.title} />
       <MovieInfo movie={state} />
+      <MovieInfoBar
+        time={state.runtime}
+        budget={state.budget}
+        revenue={state.revenue}
+      />
     </>
   );
 }
