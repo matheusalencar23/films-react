@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 //Config
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 // Components
@@ -36,11 +36,13 @@ function Home() {
   return (
     <>
       {!searchTerm && state.results[indexHeroImage] ? (
-        <HeroImage
-          image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[indexHeroImage].backdrop_path}`}
-          title={state.results[indexHeroImage].title}
-          text={state.results[indexHeroImage].overview}
-        />
+        <Link to={`/${state.results[indexHeroImage].id}`}>
+          <HeroImage
+            image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[indexHeroImage].backdrop_path}`}
+            title={state.results[indexHeroImage].title}
+            text={state.results[indexHeroImage].overview}
+          />
+        </Link>
       ) : null}
       <SearchBar setSearchTerm={setSearchTerm} />
       <Grid header={!searchTerm ? "Mais populares" : "Resultado da busca"}>
