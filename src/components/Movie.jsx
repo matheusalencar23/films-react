@@ -1,18 +1,19 @@
 import React from "react";
 //Config
-// import { POSTER_SIZE, IMAGE_BASE_URL } from "../config";
+import { POSTER_SIZE, IMAGE_BASE_URL } from "../config";
 // Route
 import { useParams } from "react-router-dom";
 //Components
-// import Grid from "./Grid";
+import Grid from "./Grid";
 import Spinner from "./Spinner";
 import BreadCrumb from "./BreadCrumb";
 import MovieInfo from "./MovieInfo";
 import MovieInfoBar from "./MovieInfoBar";
+import Actor from "./Actor";
 // Hooks
 import { useMovieFetch } from "../hooks/useMovieFetch";
 // Image
-// import NoImage from "../images/no_image.jpg";
+import NoImage from "../images/no_image.jpg";
 
 function Movie() {
   const { movieId } = useParams();
@@ -32,6 +33,24 @@ function Movie() {
         budget={state.budget}
         revenue={state.revenue}
       />
+      {!!state && !!state.actors && state.actors.length && (
+        <Grid header="Atores e Atrizes">
+          {state.actors.map((ac) => {
+            return (
+              <Actor
+                key={ac.cast_id}
+                name={ac.name}
+                character={ac.character}
+                imageUrl={
+                  ac.profile_path
+                    ? `${IMAGE_BASE_URL}${POSTER_SIZE}${ac.profile_path}`
+                    : NoImage
+                }
+              ></Actor>
+            );
+          })}
+        </Grid>
+      )}
     </>
   );
 }
